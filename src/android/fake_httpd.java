@@ -45,7 +45,7 @@ public class fake_httpd extends CordovaPlugin {
         Context context = this.cordova.getActivity().getApplicationContext();
         ContentResolver cR = context.getContentResolver();
 
-        return new OpenForReadResult(uri, input_stream, cR.getType(file_uri), inputStream.getChannel().size(), null);
+        return new OpenForReadResult(uri, input_stream, cR.getType(file_uri), input_stream.getChannel().size(), null);
     }
 
 }

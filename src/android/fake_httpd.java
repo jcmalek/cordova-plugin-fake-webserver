@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
 * This class echoes a string called from JavaScript.
@@ -51,10 +52,11 @@ public class fake_httpd extends CordovaPlugin {
         Log.wtf(TAG, "file_uri:  " + file_uri);
         Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
-        FileInputStream input_stream = new FileInputStream(file_uri.getPath());
+        //FileInputStream input_stream = new FileInputStream(file_uri.getPath());
 
         Context context = this.cordova.getActivity().getApplicationContext();
         ContentResolver cR = context.getContentResolver();
+        InputStream input_stream = cR.OpenInputStream(file_uri);
 
         Log.wtf(TAG, "getType:  " + cR.getType(file_uri));
         Log.wtf(TAG, "size:  " + input_stream.getChannel().size());

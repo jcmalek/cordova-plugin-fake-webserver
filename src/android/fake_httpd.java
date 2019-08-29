@@ -20,6 +20,7 @@ public class fake_httpd extends CordovaPlugin {
 
     @Override
     public Uri remapUri(Uri uri) {
+        return null;
     }
 
     @Override

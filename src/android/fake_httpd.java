@@ -25,10 +25,14 @@ public class fake_httpd extends CordovaPlugin {
 
     public static final String HTTP_PROTOCOL = "http";
     public static final String HTTPS_PROTOCOL = "https";
+    public static final String LOCALHOST_AUTHORITY = "localhost";
 
     @Override
     public Uri remapUri(Uri uri) {
         if (! (HTTP_PROTOCOL.equals(uri.getScheme()) || HTTPS_PROTOCOL.equals(uri.getScheme()) ) ) {
+            return null;
+        }
+        if (! LOCALHOST_AUTHORITY.equals(uri.getAuthority())) {
             return null;
         }
         // for handleOpenForRead to get called the Uri needs to be formatted as cdvplugin://pluginId/

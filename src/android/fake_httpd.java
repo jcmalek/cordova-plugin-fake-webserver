@@ -7,6 +7,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.net.Uri;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
 * This class echoes a string called from JavaScript.
 */

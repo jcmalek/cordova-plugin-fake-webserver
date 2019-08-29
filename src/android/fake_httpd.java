@@ -45,7 +45,7 @@ public class fake_httpd extends CordovaPlugin {
 
     @Override
     public CordovaResourceApi.OpenForReadResult handleOpenForRead(Uri uri) throws IOException {
-        Log.wtf(TAF, "handleOpenForRead called!");
+        Log.wtf(TAG, "handleOpenForRead called!");
         Uri original_uri = fromPluginUri(uri);
         Uri file_uri = original_uri.buildUpon().scheme("file").authority("").path("/android_asset/www/" + original_uri.getPath()).build();
         Log.wtf(TAG, "file_uri:  " + file_uri);

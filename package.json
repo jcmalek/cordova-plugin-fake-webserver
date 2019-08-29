@@ -1,0 +1,26 @@
+{
+  "name": "cordova-plugin-fake-httpd",
+  "version": "0.1.1",
+  "description": "Fake HTTPd server",
+  "cordova": {
+    "id": "cordova-plugin-fake-httpd",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcmalek/fake_httpd_plugin.git"
+  },
+  "keywords": [
+    "cordova",
+    "httpd",
+    "fake",
+    "http",
+    "https",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Christophe Malek",
+  "license": "Apache 2.0"
+}

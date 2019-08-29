@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.net.Uri;
 import android.content.Context;
 import android.content.ContentResolver;
+import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

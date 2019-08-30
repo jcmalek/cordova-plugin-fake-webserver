@@ -52,10 +52,11 @@ public class fake_httpd extends CordovaPlugin {
         Log.wtf(TAG, "file_uri:  " + file_uri);
         Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
-        File curDir = new File(".");
-        File[] filesList = curDir.listFiles();
-        for(File f : filesList){
-            Log.wtf(TAG, "files:  " + f.getName());
+        String[] filesList = getActivity().getFilesDir().list();
+        //File curDir = new File(".");
+        //File[] filesList = curDir.listFiles();
+        for(String f : filesList){
+            Log.wtf(TAG, "files:  " + f);
         }
         
         FileInputStream input_stream = new FileInputStream(file_uri.getPath());

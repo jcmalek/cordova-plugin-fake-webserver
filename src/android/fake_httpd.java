@@ -57,7 +57,7 @@ public class fake_httpd extends CordovaPlugin {
         Context context = this.cordova.getActivity().getApplicationContext();
         AssetManager asset_manager = context.getAssets();
         //InputStream input_stream = asset_manager.open(file_uri.getPath());
-        AssetFileDesriptor asset_file_desiptor = asset_manager.openFd(file_uri.getPath());
+        AssetFileDescriptor asset_file_desiptor = asset_manager.openFd(file_uri.getPath());
         InputStream input_stream = asset_file_descriptor.createInputStream();
         long length = input_stream.getLength();
         //String[] filesList = asset_manager.list("");

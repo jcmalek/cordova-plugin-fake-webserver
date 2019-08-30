@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.net.Uri;
 import android.content.Context;
 import android.content.ContentResolver;
+import android.content.res.AssetManager;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
@@ -52,7 +53,11 @@ public class fake_httpd extends CordovaPlugin {
         Log.wtf(TAG, "file_uri:  " + file_uri);
         Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
-        String[] filesList = this.cordova.getActivity().getFilesDir().list();
+        Context context = this.cordova.getActivity().getApplicationContext();
+        AssetManager assets = context.getAssets();
+        String[] filesList = assets.list("");
+
+        //String[] filesList = this.cordova.getActivity().getFilesDir().list();
         //File curDir = new File(".");
         //File[] filesList = curDir.listFiles();
         for(String f : filesList){
@@ -61,7 +66,7 @@ public class fake_httpd extends CordovaPlugin {
         
         FileInputStream input_stream = new FileInputStream(file_uri.getPath());
 
-        Context context = this.cordova.getActivity().getApplicationContext();
+        //Context context = this.cordova.getActivity().getApplicationContext();
         ContentResolver cR = context.getContentResolver();
         //InputStream input_stream = cR.OpenInputStream(file_uri);
 

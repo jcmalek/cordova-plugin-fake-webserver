@@ -49,22 +49,18 @@ public class fake_httpd extends CordovaPlugin {
     public CordovaResourceApi.OpenForReadResult handleOpenForRead(Uri uri) throws IOException {
         Log.wtf(TAG, "handleOpenForRead called!");
         Uri original_uri = fromPluginUri(uri);
-        Uri file_uri = original_uri.buildUpon().scheme("file").authority("").path("android_asset/www" + original_uri.getPath()).build();
+        Uri file_uri = original_uri.buildUpon().scheme("file").authority("").path("www" + original_uri.getPath()).build();
         Log.wtf(TAG, "file_uri:  " + file_uri);
         Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
         Context context = this.cordova.getActivity().getApplicationContext();
         AssetManager assets = context.getAssets();
-        String[] filesList = assets.list("");
-
-        //String[] filesList = this.cordova.getActivity().getFilesDir().list();
-        //File curDir = new File(".");
-        //File[] filesList = curDir.listFiles();
-        for(String f : filesList){
-            Log.wtf(TAG, "files:  " + f);
-        }
-        
-        FileInputStream input_stream = new FileInputStream(file_uri.getPath());
+        InputStream input_stream = assets.open(file_uri.getPath());
+        //String[] filesList = assets.list("");
+        //for(String f : filesList){
+        //    Log.wtf(TAG, "files:  " + f);
+        //}        
+        //FileInputStream input_stream = new FileInputStream(file_uri.getPath());
 
         //Context context = this.cordova.getActivity().getApplicationContext();
         ContentResolver cR = context.getContentResolver();
@@ -73,7 +69,8 @@ public class fake_httpd extends CordovaPlugin {
         Log.wtf(TAG, "getType:  " + cR.getType(file_uri));
         Log.wtf(TAG, "size:  " + input_stream.getChannel().size());
 
-        return new OpenForReadResult(uri, input_stream, cR.getType(file_uri), input_stream.getChannel().size(), null);
+        //input_stream.getChannel().size()
+        return new OpenForReadResult(uri, input_stream, cR.getType(file_uri), null, null);
     }
 
 }

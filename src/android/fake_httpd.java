@@ -54,23 +54,26 @@ public class fake_httpd extends CordovaPlugin {
         Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
         Context context = this.cordova.getActivity().getApplicationContext();
-        AssetManager assets = context.getAssets();
-        InputStream input_stream = assets.open(file_uri.getPath());
-        //String[] filesList = assets.list("");
+        AssetManager asset_manager = context.getAssets();
+        //InputStream input_stream = asset_manager.open(file_uri.getPath());
+        AssetFileDesriptor asset_file_desiptor = asset_manager.openFd(file_uri.getPath());
+        InputStream input_stream = asset_file_descriptor.createInputStream();
+        long length = input_stream.getLength();
+        //String[] filesList = asset_manager.list("");
         //for(String f : filesList){
         //    Log.wtf(TAG, "files:  " + f);
         //}        
         //FileInputStream input_stream = new FileInputStream(file_uri.getPath());
 
         //Context context = this.cordova.getActivity().getApplicationContext();
-        ContentResolver cR = context.getContentResolver();
-        //InputStream input_stream = cR.OpenInputStream(file_uri);
+        ContentResolver context_resolver = context.getContentResolver();
+        //InputStream input_stream = context_resolver.OpenInputStream(file_uri);
 
-        Log.wtf(TAG, "getType:  " + cR.getType(file_uri));
+        Log.wtf(TAG, "getType:  " + context_resolver.getType(file_uri));
         //Log.wtf(TAG, "size:  " + input_stream.getChannel().size());
 
         //input_stream.getChannel().size()
-        return new OpenForReadResult(uri, input_stream, cR.getType(file_uri), null, null);
+        return new OpenForReadResult(uri, input_stream, context_resolver.getType(file_uri), length, asset_file_descriptor);
     }
 
 }

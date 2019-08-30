@@ -67,7 +67,7 @@ public class fake_httpd extends CordovaPlugin {
         //InputStream input_stream = cR.OpenInputStream(file_uri);
 
         Log.wtf(TAG, "getType:  " + cR.getType(file_uri));
-        Log.wtf(TAG, "size:  " + input_stream.getChannel().size());
+        //Log.wtf(TAG, "size:  " + input_stream.getChannel().size());
 
         //input_stream.getChannel().size()
         return new OpenForReadResult(uri, input_stream, cR.getType(file_uri), null, null);

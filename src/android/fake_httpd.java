@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.content.Context;
 import android.content.ContentResolver;
 import android.content.res.AssetManager;
+import android.content.res.AssetFileDescriptor;
 import android.util.Log;
 
 import java.io.FileNotFoundException;

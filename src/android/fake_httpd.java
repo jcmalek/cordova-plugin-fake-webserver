@@ -52,11 +52,17 @@ public class fake_httpd extends CordovaPlugin {
         Log.wtf(TAG, "file_uri:  " + file_uri);
         Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
-        //FileInputStream input_stream = new FileInputStream(file_uri.getPath());
+        File curDir = new File(".");
+        File[] filesList = curDir.listFiles();
+        for(File f : filesList){
+            Log.wtf(TAG, "files:  " + f.getName());
+        }
+        
+        FileInputStream input_stream = new FileInputStream(file_uri.getPath());
 
         Context context = this.cordova.getActivity().getApplicationContext();
         ContentResolver cR = context.getContentResolver();
-        InputStream input_stream = cR.OpenInputStream(file_uri);
+        //InputStream input_stream = cR.OpenInputStream(file_uri);
 
         Log.wtf(TAG, "getType:  " + cR.getType(file_uri));
         Log.wtf(TAG, "size:  " + input_stream.getChannel().size());

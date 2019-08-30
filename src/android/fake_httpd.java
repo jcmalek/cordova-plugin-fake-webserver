@@ -50,31 +50,35 @@ public class fake_httpd extends CordovaPlugin {
     public CordovaResourceApi.OpenForReadResult handleOpenForRead(Uri uri) throws IOException {
         Log.wtf(TAG, "handleOpenForRead called!");
         Uri original_uri = fromPluginUri(uri);
-        Uri file_uri = original_uri.buildUpon().scheme("file").authority("").path("www" + original_uri.getPath()).build();
+        Uri file_uri = original_uri.buildUpon().scheme("file").authority("").path(original_uri.getPath()).build();
         Log.wtf(TAG, "file_uri:  " + file_uri);
         Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
         Context context = this.cordova.getActivity().getApplicationContext();
         AssetManager asset_manager = context.getAssets();
+
+        String[] filesList = asset_manager.list("www");
+        for(String f : filesList){
+            Log.wtf(TAG, "files:  " + f);
+        }    
+
         //InputStream input_stream = asset_manager.open(file_uri.getPath());
-        AssetFileDescriptor asset_file_descriptor = asset_manager.openFd(file_uri.getPath());
+        AssetFileDescriptor asset_file_descriptor = asset_manager.openFd("www" + file_uri.getPath());
+
+        Log.wtf(TAG, "after openFd");
+
         InputStream input_stream = asset_file_descriptor.createInputStream();
-        long length = asset_file_descriptor.getLength();
-        //String[] filesList = asset_manager.list("");
-        //for(String f : filesList){
-        //    Log.wtf(TAG, "files:  " + f);
-        //}        
-        //FileInputStream input_stream = new FileInputStream(file_uri.getPath());
 
-        //Context context = this.cordova.getActivity().getApplicationContext();
-        ContentResolver context_resolver = context.getContentResolver();
-        //InputStream input_stream = context_resolver.OpenInputStream(file_uri);
-
-        Log.wtf(TAG, "getType:  " + context_resolver.getType(file_uri));
+        Log.wtf(TAG, "after createInputStream");
+        long length = asset_file_descriptor.getLength();        
+        ContentResolver content_resolver = context.getContentResolver();
+        Log.wtf(TAG, "after getContentResolver";
+        
+        Log.wtf(TAG, "getType:  " + content_resolver.getType(file_uri));
         //Log.wtf(TAG, "size:  " + input_stream.getChannel().size());
 
         //input_stream.getChannel().size()
-        return new OpenForReadResult(uri, input_stream, context_resolver.getType(file_uri), length, asset_file_descriptor);
+        return new OpenForReadResult(uri, input_stream, content_resolver.getType(file_uri), length, asset_file_descriptor);
     }
 
 }

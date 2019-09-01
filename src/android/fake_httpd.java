@@ -34,51 +34,48 @@ public class fake_httpd extends CordovaPlugin {
 
     @Override
     public Uri remapUri(Uri uri) {
-        Log.wtf(TAG, "remapUri(" + uri + ")");
         if (! (HTTP_PROTOCOL.equals(uri.getScheme()) || HTTPS_PROTOCOL.equals(uri.getScheme()) ) ) {
             return null;
         }
         if (! LOCALHOST_AUTHORITY.equals(uri.getAuthority())) {
             return null;
         }
-        Log.wtf(TAG, "toPluginUri:  " + toPluginUri(uri));
         // for handleOpenForRead to get called the Uri needs to be formatted as cdvplugin://pluginId/
         return toPluginUri(uri);
     }
 
     @Override
     public CordovaResourceApi.OpenForReadResult handleOpenForRead(Uri uri) throws IOException {
-        Log.wtf(TAG, "handleOpenForRead called!");
         Uri original_uri = fromPluginUri(uri);
         Uri file_uri = original_uri.buildUpon().scheme("file").authority("").path(original_uri.getPath()).build();
-        Log.wtf(TAG, "file_uri:  " + file_uri);
-        Log.wtf(TAG, "getPath:  " + file_uri.getPath());
 
         Context context = this.cordova.getActivity().getApplicationContext();
         AssetManager asset_manager = context.getAssets();
 
-        String[] filesList = asset_manager.list("www");
-        for(String f : filesList){
-            Log.wtf(TAG, "files:  " + f);
-        }    
+        //String[] filesList = asset_manager.list("www");
+        //for(String f : filesList){
+        //    Log.wtf(TAG, "files:  " + f);
+        //}    
 
-        //InputStream input_stream = asset_manager.open(file_uri.getPath());
-        AssetFileDescriptor asset_file_descriptor = asset_manager.openFd("www" + file_uri.getPath());
+        // can't use openFd because it doesn't work on compressed files (many extensions are automatically compressed during build)
+        InputStream input_stream = asset_manager.open("www" + file_uri.getPath());
 
-        Log.wtf(TAG, "after openFd");
+        //CordovaWebView cordovaWebView;
+        CordovaResourceApi resourceApi = this.webView.getResourceApi();
+        String mime_type = resourceApi.getMimeType(file_uri);
 
-        InputStream input_stream = asset_file_descriptor.createInputStream();
+        // count the number of bytes in the file (required by OpenForReadResult call below)
+        byte[] bytes = new byte[1024];
+        int length = 0;
+        int count = 0;
+        while ((count = input_stream.read(bytes, 0, 1024)) > 0) {
+            length += count;
+        }
+        // close and re-open the input stream to position it back at the beginning of the file
+        input_stream.close();
+        input_stream = asset_manager.open("www" + file_uri.getPath());
 
-        Log.wtf(TAG, "after createInputStream");
-        long length = asset_file_descriptor.getLength();        
-        ContentResolver content_resolver = context.getContentResolver();
-        Log.wtf(TAG, "after getContentResolver";
-        
-        Log.wtf(TAG, "getType:  " + content_resolver.getType(file_uri));
-        //Log.wtf(TAG, "size:  " + input_stream.getChannel().size());
-
-        //input_stream.getChannel().size()
-        return new OpenForReadResult(uri, input_stream, content_resolver.getType(file_uri), length, asset_file_descriptor);
+        return new OpenForReadResult(uri, input_stream, mime_type, length, null);
     }
 
 }

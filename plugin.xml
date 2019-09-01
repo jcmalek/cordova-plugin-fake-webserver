@@ -1,20 +1,20 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="cordova-plugin-fake-httpd" version="0.1.1">
-    <name>fake_httpd</name>
-    <description>Fake HTTPd server</description>
+        id="cordova-plugin-fake-webserver" version="0.1.1">
+    <name>cordova-plugin-fake-webserver</name>
+    <description>Fake webserver</description>
     <license>Apache 2.0</license>
-    <keywords>cordova,httpd,fake,http,https</keywords>
+    <keywords>cordova,httpd,fake,http,https,webserver</keywords>
     <platform name="android">
         <config-file target="config.xml" parent="/*">
-            <feature name="fake_httpd">
-                <param name="android-package" value="org.apache.cordova.plugin.fake_httpd"/>
+            <feature name="cordova-plugin-fake-webserver">
+                <param name="android-package" value="org.apache.cordova.plugin.fake-webserver"/>
                 <param name="onload" value="true" />
             </feature>
         </config-file>
 
-        <source-file src="src/android/fake_httpd.java" target-dir="src/org/apache/cordova/plugin" />
+        <source-file src="src/android/cordova-plugin-fake-webserver.java" target-dir="src/org/apache/cordova/plugin" />
     </platform>
 </plugin>
 

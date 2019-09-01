@@ -1,9 +1,9 @@
 {
-  "name": "cordova-plugin-fake-httpd",
+  "name": "cordova-plugin-fake-webserver",
   "version": "0.1.1",
-  "description": "Fake HTTPd server",
+  "description": "Fake webserver",
   "cordova": {
-    "id": "cordova-plugin-fake-httpd",
+    "id": "cordova-plugin-fake-webserver",
     "platforms": [
       "android"
     ]

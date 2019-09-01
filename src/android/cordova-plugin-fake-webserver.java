@@ -8,9 +8,9 @@ import android.util.Log;
 /**
 * This class remaps http://localhost and https://localhost URIs to file:///android_asset/www/
 */
-public class fake_httpd extends CordovaPlugin {
+public class cordova-plugin-fake-webserver extends CordovaPlugin {
 
-    public static final String TAG = "fake_httpd";
+    public static final String TAG = "cordova-plugin-fake-webserver";
     public static final String HTTP_PROTOCOL = "http";
     public static final String HTTPS_PROTOCOL = "https";
     public static final String LOCALHOST_AUTHORITY = "localhost";

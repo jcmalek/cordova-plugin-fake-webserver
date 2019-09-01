@@ -9,7 +9,6 @@ import android.util.Log;
 * This class remaps http://localhost and https://localhost URIs to file:///android_asset/www/
 */
 public class cordova_plugin_fake_webserver extends CordovaPlugin {
-
     public static final String TAG = "cordova-plugin-fake-webserver";
     public static final String HTTP_PROTOCOL = "http";
     public static final String HTTPS_PROTOCOL = "https";
